@@ -1,0 +1,56 @@
+- name: Add repo for java 8
+  apt_repository: repo='ppa:webupd8team/java' state=present
+  become: yes
+
+- name: Set licence selected for oracle java 8
+  shell: /bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+  become: yes
+
+- name: Set licence seen for oracle java 8
+  shell: /bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections
+  become: yes
+
+- name: Install java 8
+  apt: name=oracle-java8-installer state=latest update-cache=yes
+  become: yes
+
+- name: get maven3.5.4
+  get_url:
+    url: http://www-eu.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz
+    dest: /usr/local
+  force: yes
+  become: yes
+
+- name: Unarchive a file that is already on the remote machine
+  unarchive:
+    src: /usr/local/apache-maven-3.5.2-bin.tar.gz
+    dest: /usr/local
+    remote_src: yes
+  force: yes
+  become: yes  
+
+- name: Install google-chrome-stable
+  apt: deb=https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  become: yes
+
+- name: Install Git
+  apt:
+    pkg: 'git'
+    state: present
+    update_cache: true
+  become: yes
+
+- name: Git clone Onboarding-Selenium
+  git: 
+    repo: https://github.com/CSC-326/Onboarding-Selenium.git 
+    dest: /home/vagrant/git/
+    force: yes
+
+- name: Replace localhost with ip address
+  replace:
+    dest: /home/vagrant/git/src/src/test/java/selenium/tests/WebTest.java 
+    regexp: 'localhost'
+    replace: '192.168.33.100'
+
+- name: Export maven 3.5 and run Selenium tests
+  shell: export PATH=/usr/local/apache-maven-3.5.2/bin:$PATH && cd /home/vagrant/git/src && mvn test

@@ -1,0 +1,5 @@
+[server1]
+192.168.33.100 ansible_ssh_user=vagrant ansible_ssh_private_key_file=./keys/server1.key
+
+[server2]
+192.168.33.11 ansible_ssh_user=vagrant ansible_ssh_private_key_file=./keys/server2.key
