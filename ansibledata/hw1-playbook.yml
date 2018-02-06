@@ -1,0 +1,16 @@
+---
+- hosts: server1
+
+  vars_prompt:
+    - name: "mysqlpassword"
+      prompt: "Enter password for MySQL"
+    - name: "githubuser"
+      prompt: "Enter username for github"
+    - name: "githubpassword"
+      prompt: "Enter password for github"
+  roles:
+    - coffeeserver
+
+- hosts: server2
+  roles:
+    - seleniumserver

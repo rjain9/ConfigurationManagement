@@ -1,0 +1,1 @@
+{"virtualbox":{"/syncdata":{"guestpath":"/syncdata","hostpath":"/home/rishi/HW1/server2data","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/rishi/HW1/server2","disabled":false,"__vagrantfile":true}}}
