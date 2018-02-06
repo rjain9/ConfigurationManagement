@@ -1,10 +1,4 @@
-# HW1
-
-CSC-DevOps Spring 2018: HW1
-
-Name: Rishi Jain
-
-Unity ID: rjain9
+# Configuration Management
 
 ## Steps in setup
 
